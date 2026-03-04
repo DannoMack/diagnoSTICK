@@ -71,7 +71,7 @@ echo "CPU TEMPERATURE"
 echo "───────────────"
 
 SENSOR_OUTPUT=$(sensors 2>/dev/null | grep -E "Core|Package|Tdie|CPU" | grep "°C")
-MAX_TEMP=$(sensors 2>/dev/null | grep -oP '\+\K[0-9]+(?=\.\d+°C)' | sort -n | tail -1)
+MAX_TEMP=$(sensors 2>/dev/null | grep -E "Core|Package|Tdie|CPU" | grep -oP '\+\K[0-9]+(?=\.\d+°C)' | head -1 | sort -n | tail -1)
 
 if [ ! -z "$SENSOR_OUTPUT" ] && [ ! -z "$MAX_TEMP" ]; then
     echo "$SENSOR_OUTPUT" | while read line; do echo "  $line"; done
